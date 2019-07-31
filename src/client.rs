@@ -6,6 +6,7 @@ use std::fs::File;
 pub struct Client {
     username: String,
     password: String,
+    client: reqwest::Client,
 }
 
 impl Client {
@@ -13,6 +14,7 @@ impl Client {
         Client {
             username: username.to_owned(),
             password: password.to_owned(),
+            client: reqwest::Client::new(),
         }
     }
 
@@ -31,7 +33,7 @@ impl Client {
 
     /// Main function that creates the RequestBuilder, sets the method, url and the basic_auth
     fn start_request(&self, method: Method, path: &str) -> RequestBuilder {
-        reqwest::Client::new()
+        self.client
             .request(method, Url::parse(path).unwrap())
             .basic_auth(self.username.as_str(), Some(self.password.as_str()))
     }
