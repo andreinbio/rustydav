@@ -1,8 +1,7 @@
 # rustydav
 Implementation of webdav requests in rust
 
-This is a small library written in rust and inspired by [hyperdav](https://gitlab.com/Gahr/hyperdav)
-It uses [reqwest](https://github.com/seanmonstar/reqwest) library as the base.
+This is a small library written in rust and inspired by [hyperdav](https://gitlab.com/Gahr/hyperdav) and uses [reqwest](https://github.com/seanmonstar/reqwest) library as the base.
 
 # Example
 Small example how to use this library
