@@ -1,6 +1,5 @@
 use super::prelude::*;
 use std::collections::HashMap;
-use std::fs::File;
 
 #[derive(Debug)]
 pub struct Client {
@@ -45,7 +44,7 @@ impl Client {
     }
 
     /// Put a file on Webdav server
-    pub fn put(&self, body: File, path: &str) -> Result<Response, Error> {
+    pub fn put<B: Into<Body>>(&self, body: B, path: &str) -> Result<Response, Error> {
         self.start_request(Method::PUT, path)
             .headers(self.custom_header("content-type", "application/octet-stream"))
             .body(body)

@@ -1,1 +1,1 @@
-pub use reqwest::{Method, RequestBuilder, Response, Error, header, Url};
+pub use reqwest::{Body, Method, RequestBuilder, Response, Error, header, Url};
