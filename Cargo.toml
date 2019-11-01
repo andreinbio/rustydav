@@ -6,6 +6,7 @@ edition = "2018"
 description = "Small library that can be used to make calls to webdav server"
 repository = "https://github.com/andreinbio/rustydav"
 keywords = ["webdav", "rustydav"]
+license = "GPL-3.0"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
