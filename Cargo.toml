@@ -3,6 +3,9 @@ name = "rustydav"
 version = "0.1.0"
 authors = ["Andrei Nagacevschi <andrein_bio@yahoo.com>"]
 edition = "2018"
+description = "Small library that can be used to make calls to webdav server"
+repository = "https://github.com/andreinbio/rustydav"
+keywords = ["webdav", "rustydav"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
