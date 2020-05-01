@@ -1,29 +1,31 @@
+//! Webdav client
+//!
+//! Create a client
+//! ```ignore
+//! let client = Client::init("username", "password");
+//! ```
+//! Now you can use the client to call any of the methods listed bellow.
+//!
+//! All the paths used by the methods should be absolute on the webdav server to the required file, folder, zip.
+//!
+//! Every method will return a Result<Response, Error>
+//! ```rust
+//! # let result: Result<&str, String> = Ok("test");
+//! if result.is_ok() {
+//!    // the method completed with success
+//! } else {
+//!    // somenting when wrong
+//! }
+//! ```
+
 use super::prelude::*;
 use std::collections::HashMap;
 
-/// Webdav client
-///
-/// Create a client
-/// ```rust
-/// let client = client::Client::init(/*username*/, /*password*/);
-/// ```
-/// Now you can use the client to call any of the methods listed bellow.
-///
-/// All the paths used by the methods should be absolute on the webdav server to the required file, folder, zip.
-///
-/// Every method will return a Result<Response, Error>
-/// ```rust
-/// if (result.ok() {
-///    // the method completed with success
-/// } else {
-///    // somenting when wrong
-/// }
-/// ```
 #[derive(Debug)]
 pub struct Client {
     username: String,
     password: String,
-    client: reqwest::Client,
+    client: reqwest::blocking::Client,
 }
 
 impl Client {
@@ -34,7 +36,7 @@ impl Client {
         Client {
             username: username.to_owned(),
             password: password.to_owned(),
-            client: reqwest::Client::new(),
+            client: reqwest::blocking::Client::new(),
         }
     }
 
@@ -57,7 +59,7 @@ impl Client {
             .request(method, Url::parse(path).unwrap())
             .basic_auth(self.username.as_str(), Some(self.password.as_str()))
     }
-    
+
     /// Get a file from Webdav server
     ///
     /// Use absolute path to the webdav server file location
@@ -65,7 +67,7 @@ impl Client {
         self.start_request(Method::GET, path)
             .send()
     }
-    
+
     /// Upload a file/zip on Webdav server
     ///
     /// It can be any type of file as long as it is transformed to a vector of bytes (Vec<u8>).
@@ -76,7 +78,7 @@ impl Client {
             .body(body)
             .send()
     }
-    
+
     /// Deletes the collection, file, folder or zip archive at the given path on Webdav server
     ///
     /// Use absolute path to the webdav server file location
@@ -128,5 +130,77 @@ impl Client {
             .headers(self.custom_header("depth", depth))
             .body(body)
             .send()
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    const SERVER_URL: &str = "https://www.webdavserver.com";
+    const USER_FOLDER: &str = "User287e257";
+
+    fn get_server_path(path: &str) -> String {
+        format!("{0}/{1}/{2}", SERVER_URL, USER_FOLDER, path)
+    }
+
+    fn get_client() -> Client {
+        Client::init("", "")
+    }
+
+    #[test]
+    fn test_1_mkcol() {
+        let webdav_client = get_client();
+        let result = webdav_client.mkcol(get_server_path("rustydav").as_str());
+
+        assert_eq!(result.is_ok(), true);
+    }
+
+    #[test]
+    fn test_2_put() {
+        let webdav_client = get_client();
+        let result = webdav_client.put("rustydav is a cool small library", get_server_path("rustydav/test.txt").as_str());
+
+        assert_eq!(result.is_ok(), true);
+    }
+
+    #[test]
+    fn test_3_get() {
+        let webdav_client = get_client();
+        let result = webdav_client.get(get_server_path("rustydav/test.txt").as_str());
+
+        assert_eq!(result.is_ok(), true);
+    }
+
+    #[test]
+    fn test_4_mv() {
+        let webdav_client = get_client();
+        let result = webdav_client.mv(get_server_path("rustydav/test.txt").as_str(), get_server_path("test.txt").as_str());
+
+        assert_eq!(result.is_ok(), true);
+    }
+
+    #[test]
+    fn test_5_delete() {
+        let webdav_client = get_client();
+        let result = webdav_client.delete(get_server_path("test.txt").as_str());
+
+        assert_eq!(result.is_ok(), true);
+    }
+
+    #[test]
+    fn test_6_unzip() {
+        let webdav_client = get_client();
+        let result = webdav_client.unzip(get_server_path("test.zip").as_str());
+
+        assert_eq!(result.is_ok(), true);
+    }
+
+    #[test]
+    fn test_7_list() {
+        let webdav_client = get_client();
+        let result = webdav_client.list(get_server_path("").as_str(), "0");
+
+        assert_eq!(result.is_ok(), true);
     }
 }
