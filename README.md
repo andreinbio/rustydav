@@ -8,7 +8,16 @@ Implementation of webdav requests in rust
 
 This is a small library written in rust and inspired by [hyperdav](https://gitlab.com/Gahr/hyperdav) and uses [reqwest](https://github.com/seanmonstar/reqwest) library as the base.
 
-This library can be used to make calls to webdav server
+This library can be used to make calls to webdav server.
+
+Supported methods are:
+- **get**
+- **put**
+- **delete**
+- **unzip**
+- **mkcol**
+- **mv**
+- **list**
 
 [Changelog](CHANGELOG.md)
 
@@ -27,10 +36,7 @@ extern crate rustydav;
 use rustydav::client;
 use rustydav::prelude::*;
 ```
-
-Supported methods are: **get**, **put**, **delete**, **unzip**, **mkcol**, **mv**, **list**.
-For some description about them please see the **client.rs** file.
-
+Short methods call examples
 ```rust
 // Every method will return a Result<Response, Error>
 
@@ -69,3 +75,4 @@ let result = client.mv(/*absolute path on the server for old file location/name*
 // The result will contain an xml list with the remote folder contents.
 let result = client.list(/*absolute path on the server to list the files*/, /*depth being "0", "1" or "infinity"*/);
 ```
+For some description about them please see the [**client.rs**](src/client.rs) file.
