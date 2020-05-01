@@ -10,6 +10,8 @@ This is a small library written in rust and inspired by [hyperdav](https://gitla
 
 This library can be used to make calls to webdav server
 
+[Changelog](CHANGELOG.md)
+
 # Example
 Small example how to use this library
 
