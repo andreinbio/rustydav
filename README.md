@@ -1,5 +1,7 @@
 # rustydav
 
+[![build](https://github.com/andreinbio/rustydav/workflows/build/badge.svg)](https://github.com/andreinbio/rustydav/actions?query=workflow%3Abuild)
+[![tests](https://github.com/andreinbio/rustydav/workflows/test/badge.svg)](https://github.com/andreinbio/rustydav/actions?query=workflow%3Atest)
 [![crates.io](https://img.shields.io/crates/v/rustydav.svg)](https://crates.io/crates/rustydav)
 [![Documentation](https://docs.rs/rustydav/badge.svg)](https://docs.rs/rustydav)
 [![GPL-3.0 licensed](https://img.shields.io/crates/l/rustydav.svg)](./LICENSE)
