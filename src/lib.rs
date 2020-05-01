@@ -1,3 +1,11 @@
+//! # rustydav
+//!
+//! [![build](https://github.com/andreinbio/rustydav/workflows/build/badge.svg)](https://github.com/andreinbio/rustydav/actions?query=workflow%3Abuild)
+//! [![tests](https://github.com/andreinbio/rustydav/workflows/test/badge.svg)](https://github.com/andreinbio/rustydav/actions?query=workflow%3Atest)
+//! [![crates.io](https://img.shields.io/crates/v/rustydav.svg)](https://crates.io/crates/rustydav)
+//! [![Documentation](https://docs.rs/rustydav/badge.svg)](https://docs.rs/rustydav)
+//! [![GPL-3.0 licensed](https://img.shields.io/crates/l/rustydav.svg)](./LICENSE)
+//!
 //! This is a small library written in rust and inspired by [hyperdav](https://gitlab.com/Gahr/hyperdav) and uses [reqwest](https://github.com/seanmonstar/reqwest) library as the base.
 //!
 //! This library can be used to make calls to webdav server
@@ -13,7 +21,7 @@
 //! include **rustydav** as a dependency
 //! ```toml
 //! [dependencies]
-//! rustydav = "0.1.1"
+//! rustydav = "0.1.2"
 //! ```
 //! Then add **rustydav** to your code
 //! ```rust

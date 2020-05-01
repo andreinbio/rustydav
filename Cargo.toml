@@ -1,6 +1,6 @@
 [package]
 name = "rustydav"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["Andrei Nagacevschi <andrein_bio@yahoo.com>"]
 edition = "2018"
 description = "Small library that can be used to make calls to webdav server"

@@ -1,6 +1,8 @@
 # v0.1.2
 
-Update **reqwest** to `v0.10.4`
+Update **reqwest** to `v0.10`
+
+Add `blocking` feature
 
 # v0.1.1
 

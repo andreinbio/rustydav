@@ -29,7 +29,7 @@ Small example how to use this library
 include **rustydav** as a dependency
 ```rust
 [dependencies]
-rustydav = "0.1.1"
+rustydav = "0.1.2"
 ```
 Then add this to your code
 ```rust
@@ -42,7 +42,7 @@ Short methods call examples
 ```rust
 // Every method will return a Result<Response, Error>
 
-if (result.ok() {
+if (result.is_ok() {
     // the method completed with success
 } else {
     // somenting when wrong
