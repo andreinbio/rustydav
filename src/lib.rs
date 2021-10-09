@@ -18,10 +18,11 @@
 //! - **mkcol**
 //! - **mv**
 //! - **list**
-//! include **rustydav** as a dependency
+//!
+//! Include **rustydav** as a dependency
 //! ```toml
 //! [dependencies]
-//! rustydav = "0.1.2"
+//! rustydav = "0.1.3"
 //! ```
 //! Then add **rustydav** to your code
 //! ```rust
