@@ -1,3 +1,7 @@
+# v0.1.3
+
+Update **reqwest** to `v0.11`
+
 # v0.1.2
 
 Update **reqwest** to `v0.10`

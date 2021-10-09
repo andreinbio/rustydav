@@ -4,7 +4,7 @@
 //! ```ignore
 //! let client = Client::init("username", "password");
 //! ```
-//! Now you can use the client to call any of the methods listed bellow.
+//! Now you can use the client to call any of the methods listed in the **Client** Struct.
 //!
 //! All the paths used by the methods should be absolute on the webdav server to the required file, folder, zip.
 //!
@@ -72,6 +72,8 @@ impl Client {
     ///
     /// It can be any type of file as long as it is transformed to a vector of bytes (Vec<u8>).
     /// This can be achieved with **std::fs::File** or **zip-rs** for sending zip files.
+    ///
+    /// Use absolute path to the webdav server folder location
     pub fn put<B: Into<Body>>(&self, body: B, path: &str) -> Result<Response, Error> {
         self.start_request(Method::PUT, path)
             .headers(self.custom_header("content-type", "application/octet-stream"))
@@ -107,6 +109,7 @@ impl Client {
     /// Rename or move a collection, file, folder on Webdav server
     ///
     /// If the file location changes it will move the file, if only the file name changes it will rename it.
+    ///
     /// Use absolute path to the webdav server file location
     pub fn mv(&self, from: &str, to: &str) -> Result<Response, Error> {
         self.start_request(Method::from_bytes(b"MOVE").unwrap(), from)
@@ -118,6 +121,7 @@ impl Client {
     ///
     /// Depth of "0" applies only to the resource, "1" to the resource and it's children, "infinity" to the resource and all it's children recursively
     /// The result will contain an xml list with the remote folder contents.
+    ///
     /// Use absolute path to the webdav server folder location
     pub fn list(&self, path: &str, depth: &str) -> Result<Response, Error> {
         let body = r#"<?xml version="1.0" encoding="utf-8" ?>
