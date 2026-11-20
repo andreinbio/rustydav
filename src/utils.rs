@@ -57,11 +57,7 @@ pub async fn evaluate_response_async(
         let headers = response.headers().clone(); // Clone the headers map
         let body = response.text().await.unwrap_or_default();
 
-        Err(RustyDavError::WebDavStatus {
-            status,
-            headers,
-            body,
-        })
+        Err(RustyDavError::from_status(status, headers, body))
     }
 }
 
@@ -78,11 +74,7 @@ pub fn evaluate_response_blocking(
         let headers = response.headers().clone(); // Clone the headers map
         let body = response.text().unwrap_or_default();
 
-        Err(RustyDavError::WebDavStatus {
-            status,
-            headers,
-            body,
-        })
+        Err(RustyDavError::from_status(status, headers, body))
     }
 }
 

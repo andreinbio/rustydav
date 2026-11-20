@@ -6,7 +6,7 @@ use wiremock::{Mock, MockServer, ResponseTemplate};
 
 async fn basic_setup() -> (MockServer, WebDavClientBuilder) {
     let server = MockServer::start().await;
-    let client_builder = WebDavClientBuilder::new(&server.uri());
+    let client_builder = WebDavClientBuilder::new(server.uri());
 
     (server, client_builder)
 }
