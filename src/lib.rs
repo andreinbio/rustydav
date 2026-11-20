@@ -96,13 +96,27 @@
 //! # async fn example() -> Result<(), RustyDavError> {
 //! # let client = WebDavClientBuilder::new("https://example.com").build()?;
 //! #
+//! use rustydav::RustyDavError;
+//!
 //! match client.get("path/to/file").await {
-//!     Ok(response) => println!("Success! Download completed."),
-//!     Err(err) => eprintln!("Network or configuration error occurred: {}", err),
+//!     Ok(response) => println!("Download completed: {}.", response.status()),
+//!     Err(RustyDavError::WebDaveStatus(err)) => {
+//!         eprintln!("Server error ({}): {}", err.status, err.body);
+//!     },
+//!     Err(RustyDavError::Http(err)) => {
+//!         eprintln!("Network or connection error: {}", err);
+//!     },
+//!     Err(err) => eprintln!("Configuration error: {}", err),
 //! }
 //! # Ok(())
 //! # }
 //! ```
+//! Available `RustyDavError` variants:
+//! * **`WebDavStatus`** — Non-2xx HTTP response from the server (includes `status`, `headers`, and `body`).
+//! * **`Http`** — Underlying `reqwest` network, TLS, or timeout failure.
+//! * **`UrlParse` / `UnsupportedScheme`** — Malformed URL or non-`http(s)` scheme.
+//! * **`InvalidMethod`** — Invalid custom HTTP/WebDAV verb.
+
 
 pub mod builder;
 pub mod client;
