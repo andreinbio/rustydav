@@ -12,7 +12,7 @@
 //! - ✅ Inspired by [hyperdav](https://gitlab.com/Gahr/hyperdav).
 //!
 //! ## Status & Licensing
-//! [![tests](https://github.com/andreinbio/rustydav/workflows/test/badge.svg)](https://github.com/andreinbio/rustydav/actions?query=workflow%3Atest)
+//! [![Rust Tests](https://github.com/andreinbio/rustydav/actions/workflows/rust.yml/badge.svg)](https://github.com/andreinbio/rustydav/actions/workflows/rust.yml)
 //! [![crates.io](https://img.shields.io/crates/v/rustydav.svg)](https://crates.io/crates/rustydav)
 //! [![Documentation](https://docs.rs/rustydav/badge.svg)](https://docs.rs/rustydav)
 //! [![GPL-3.0 licensed](https://img.shields.io/crates/l/rustydav?style=flat-square)](./LICENSE)
@@ -35,7 +35,7 @@
 //! ## Usage Examples
 //!
 //! ### 1. Async Client (Recommended for concurrent applications)
-//! ```rust,no_run
+//! ```rust
 //! use rustydav::{WebDavClientBuilder, RustyDavError};
 //!
 //! #[tokio::main]
@@ -56,7 +56,9 @@
 //! ```
 //!
 //! ### 2. Sync/Blocking Client (For scripts or non-async contexts)
-//! ```rust,no_run
+//! ```rust
+//! # #[cfg(feature = "blocking")]
+//! # mod wrapper {
 //! use rustydav::{WebDavClientBuilder, RustyDavError};
 //!
 //! fn main() -> Result<(), RustyDavError> {
@@ -73,6 +75,7 @@
 //!
 //!     Ok(())
 //! }
+//! # }
 //! ```
 //!
 //! ## Supported Operations
@@ -90,7 +93,7 @@
 //! All client methods return a `Result<Response, RustyDavError>`. You can handle failures
 //! using pattern matching to inspect specific error variations:
 //!
-//! ```rust,no_run
+//! ```rust
 //! # use rustydav::{WebDavClientBuilder, RustyDavError};
 //! # use reqwest::Response;
 //! # async fn example() -> Result<(), RustyDavError> {
@@ -100,7 +103,7 @@
 //!
 //! match client.get("path/to/file").await {
 //!     Ok(response) => println!("Download completed: {}.", response.status()),
-//!     Err(RustyDavError::WebDaveStatus(err)) => {
+//!     Err(RustyDavError::WebDavStatus(err)) => {
 //!         eprintln!("Server error ({}): {}", err.status, err.body);
 //!     },
 //!     Err(RustyDavError::Http(err)) => {
@@ -117,7 +120,6 @@
 //! * **`UrlParse` / `UnsupportedScheme`** — Malformed URL or non-`http(s)` scheme.
 //! * **`InvalidMethod`** — Invalid custom HTTP/WebDAV verb.
 
-
 pub mod builder;
 pub mod client;
 pub mod error;
@@ -125,7 +127,7 @@ pub mod error;
 // --- Client & Error Types ---
 pub use builder::WebDavClientBuilder;
 pub use client::WebDavClient;
-pub use error::RustyDavError;
+pub use error::{RustyDavError, WebDavStatusError};
 
 // --- Success & Utility Path Types ---
 pub use reqwest::{Method, Response};

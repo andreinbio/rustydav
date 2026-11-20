@@ -12,7 +12,7 @@ It leverages the powerful [`reqwest`](https://github.com/seanmonstar/reqwest) HT
 - ✅ Inspired by [hyperdav](https://gitlab.com/Gahr/hyperdav).
 
 ## Status & Licensing
-[![tests](https://github.com/andreinbio/rustydav/workflows/test/badge.svg)](https://github.com/andreinbio/rustydav/actions?query=workflow%3Atest)
+[![Rust Tests](https://github.com/andreinbio/rustydav/actions/workflows/rust.yml/badge.svg)](https://github.com/andreinbio/rustydav/actions/workflows/rust.yml)
 [![crates.io](https://img.shields.io/crates/v/rustydav.svg)](https://crates.io/crates/rustydav)
 [![Documentation](https://docs.rs/rustydav/badge.svg)](https://docs.rs/rustydav)
 [![GPL-3.0 licensed](https://img.shields.io/crates/l/rustydav?style=flat-square)](./LICENSE)
