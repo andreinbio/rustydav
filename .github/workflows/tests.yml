@@ -1,17 +1,41 @@
-name: tests
+name: Rust Tests
 
 on:
   push:
-    branches: [ master, develop ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ master, develop ]
+    branches: [ "main" ]
+
+env:
+  CARGO_TERM_COLOR: always
 
 jobs:
-  build:
-
+  test:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Run tests
-      run: cargo test --verbose
+      # 1. Checkout your repository code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Install the stable Rust toolchain
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+
+      # 3. Cache Cargo dependencies to speed up subsequent PR runs
+      - name: Cache Cargo dependencies
+        uses: Swatinem/rust-cache@v2
+
+      # 4. Check code formatting (fails if not formatted with `cargo fmt`)
+      - name: Check formatting
+        run: cargo fmt --all -- --check
+
+      # 5. Run Clippy linter (fails if there are any warnings)
+      - name: Run Clippy
+        run: cargo clippy --all-targets --all-features -- -D warnings
+
+      # 6. Run your test suite
+      - name: Run tests
+        run: cargo test --verbose
